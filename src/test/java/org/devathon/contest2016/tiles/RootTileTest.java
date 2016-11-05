@@ -38,7 +38,7 @@ public class RootTileTest {
 
     @Test
     public void testTileManager() throws Exception {
-        assertThat(root.getManager().get(0, 0).get(), is(root));
+        assertThat(root.getManager().get(new Coordinate(0, 0)).get(), is(root));
     }
 
     @Test

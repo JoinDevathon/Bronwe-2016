@@ -16,7 +16,7 @@ public class WorldTileTest {
     public void testCalculateSides() throws Exception {
         Tile root = new RootTile();
         Manager manager = new TileManager(root);
-        Tile neighbor = manager.create(1, 0);
+        Tile neighbor = manager.create(new Coordinate(1, 0));
         assertThat(neighbor.getSides().get(3).getOther(), is(root.getSides().get(1)));
     }
 
@@ -24,7 +24,7 @@ public class WorldTileTest {
     public void testCalculateSidesLinks() throws Exception {
         Tile root = new RootTile();
         Manager manager = new TileManager(root);
-        Tile neighbor = manager.create(1, 0);
+        Tile neighbor = manager.create(new Coordinate(1, 0));
         Side side = neighbor.getSides().get(3);
         assertThat(side.getOther().getOther(), is(side));
     }

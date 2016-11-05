@@ -18,8 +18,8 @@ public class WorldSide implements Side {
         this.type = type;
     }
 
-    public WorldSide(Side other) {
-        this(other.getTile(), other.getType());
+    public WorldSide(Tile parent, Side other) {
+        this(parent, other.getType());
         this.otherSide = other;
         otherSide.setOther(this);
     }
@@ -31,8 +31,6 @@ public class WorldSide implements Side {
 
     @Override
     public Side getOther() {
-        if (otherSide == null)
-            otherSide = new WorldSide(this);
         return otherSide;
     }
 

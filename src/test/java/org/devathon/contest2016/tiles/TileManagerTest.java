@@ -28,46 +28,46 @@ public class TileManagerTest {
 
     @Test
     public void testUnconnectedTileThrowsException() throws Exception {
-        manager.get(2, 2);
+        manager.get(new Coordinate(2, 2));
     }
 
     @Test
     public void testCreateUnconnectedTileThrowsException() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile would not be connected.");
-        manager.create(2, 2);
+        manager.create(new Coordinate(2, 2));
     }
 
     @Test
     public void testCreateConnectedTile() throws Exception {
-        assertThat(manager.create(1, 0), is(instanceOf(WorldTile.class)));
+        assertThat(manager.create(new Coordinate(1, 0)), is(instanceOf(WorldTile.class)));
     }
 
     @Test
     public void testCreateRootThrowsException() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile already exists.");
-        manager.create(0, 0);
+        manager.create(new Coordinate(0, 0));
     }
 
     @Test
     public void testExistingTileThrowsException() throws Exception {
-        manager.create(1, 0);
+        manager.create(new Coordinate(1, 0));
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile already exists.");
-        manager.create(1, 0);
+        manager.create(new Coordinate(1, 0));
     }
 
     @Test
     public void testGetTotal() throws Exception {
         assertThat(manager.getTileCount(), is(1));
-        manager.create(1, 0);
+        manager.create(new Coordinate(1, 0));
         assertThat(manager.getTileCount(), is(2));
     }
 
     @Test
     public void testNewTileGetManager() throws Exception {
-        assertThat(manager.create(1, 0).getManager(), is(manager));
+        assertThat(manager.create(new Coordinate(1, 0)).getManager(), is(manager));
     }
 
 }

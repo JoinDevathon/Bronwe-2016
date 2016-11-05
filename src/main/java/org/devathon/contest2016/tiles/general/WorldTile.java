@@ -1,12 +1,14 @@
 package org.devathon.contest2016.tiles.general;
 
-import org.devathon.contest2016.tiles.Manager;
-import org.devathon.contest2016.tiles.Side;
-import org.devathon.contest2016.tiles.Tile;
+import org.devathon.contest2016.tiles.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.devathon.contest2016.tiles.Coordinate.opposite;
 
 /**
  * Created by Voronwe on 11/5/2016.
@@ -17,23 +19,31 @@ public class WorldTile implements Tile {
 
     private Manager manager;
 
-    public WorldTile(Manager manager, int x, int y) {
+    public WorldTile(Manager manager, Coordinate coord) {
+        sides = new ArrayList<>(4);
         this.manager = manager;
-        this.sides = Arrays.asList(
-                createSide(manager, x, y + 1, 2),
-                createSide(manager, x + 1, y, 3),
-                createSide(manager, x, y - 1, 0),
-                createSide(manager, x - 1, y, 1)
-        );
+        List<Coordinate> neighbors = coord.getNeighbors();
+        int size = neighbors.size();
+
+        AtomicInteger i = new AtomicInteger(-1);
+        while (i.incrementAndGet() < size) {
+            AtomicBoolean found = new AtomicBoolean();
+            Optional<Tile> tile = manager.get(neighbors.get(i.get()));
+
+            tile.ifPresent(neighborTile -> {
+                Side other = neighborTile.getSides().get(opposite(i.get()));
+                sides.add(new WorldSide(this, other));
+                found.set(true);
+            });
+
+            if (!found.get()) {
+                sides.add(new WorldSide(this, (Type) null));
+            }
+        }
     }
 
-    private Side createSide(Manager manager, int x, int y, int i) {
-        Optional<Tile> tile = manager.get(x, y);
-        if (tile.isPresent()) {
-            List<Side> sides = tile.get().getSides();
-            return new WorldSide(sides.get(i));
-        } else
-            return new WorldSide(this, null);
+    private static String firstLetter(Side o) {
+        return o.toString().substring(0, 1);
     }
 
     @Override
@@ -52,10 +62,10 @@ public class WorldTile implements Tile {
                         "# %s #%n" +
                         "%s   %s%n" +
                         "# %s #",
-                sides.get(0).toString().substring(0, 1),
-                sides.get(3).toString().substring(0, 1),
-                sides.get(1).toString().substring(0, 1),
-                sides.get(2).toString().substring(0, 1)
+                firstLetter(sides.get(0)),
+                firstLetter(sides.get(3)),
+                firstLetter(sides.get(1)),
+                firstLetter(sides.get(2))
         );
     }
 }

@@ -6,9 +6,9 @@ import java.util.Optional;
  * Created by Voronwe on 11/5/2016.
  */
 public interface Manager {
-    Optional<Tile> get(int x, int y);
+    Optional<Tile> get(Coordinate coord);
 
-    Tile create(int x, int y);
+    Tile create(Coordinate coord);
 
     int getTileCount();
 }

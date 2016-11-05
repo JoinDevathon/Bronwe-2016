@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles.general;
 
+import org.devathon.contest2016.tiles.Coordinate;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,13 +25,17 @@ public class DisplayTest {
 
     @Test
     public void testTile() throws Exception {
-        ;
-        assertThat(new RootTile().getManager().create(1, 0).toString(), is("" +
+
+        assertThat(new RootTile().getManager().create(new Coordinate(1, 0)).toString(), is("" +
                         "# n #" + NEWLINE +
                         "R   n" + NEWLINE +
                         "# n #"
                 )
         );
+    }
+    @Test
+    public void testCoordinates() throws Exception {
+        assertThat(new Coordinate(3, 4).toString(), is("3 4"));
     }
 
 }

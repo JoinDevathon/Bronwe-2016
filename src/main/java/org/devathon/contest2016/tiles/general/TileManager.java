@@ -1,6 +1,6 @@
 package org.devathon.contest2016.tiles.general;
 
-import org.devathon.contest2016.Pair;
+import org.devathon.contest2016.tiles.Coordinate;
 import org.devathon.contest2016.tiles.Manager;
 import org.devathon.contest2016.tiles.Tile;
 
@@ -13,34 +13,33 @@ import java.util.Optional;
  */
 public class TileManager implements Manager {
 
-    private Map<Pair<Integer, Integer>, Tile> tiles;
+    private Map<Coordinate, Tile> tiles;
 
     public TileManager(Tile root) {
         tiles = new HashMap<>();
-        put(0, 0, root);
+        put(new Coordinate(0, 0), root);
 
     }
 
     @Override
-    public Optional<Tile> get(int x, int y) {
-
-        return Optional.ofNullable(tiles.getOrDefault(new Pair<>(x, y), null));
+    public Optional<Tile> get(Coordinate coord) {
+        return Optional.ofNullable(tiles.getOrDefault(coord, null));
     }
 
-    private boolean exists(int x, int y) {
-        return tiles.containsKey(new Pair<>(x, y));
+    private boolean exists(Coordinate coord) {
+        return tiles.containsKey(coord);
     }
 
     @Override
-    public Tile create(int x, int y) {
-        if (exists(x, y))
+    public Tile create(Coordinate coord) {
+        if (exists(coord))
             throw new IllegalArgumentException("This tile already exists.");
 
-        if (!hasExistingNeighbor(x, y))
+        if (!hasExistingNeighbor(coord))
             throw new IllegalArgumentException("This tile would not be connected.");
 
-        put(x, y, new WorldTile(this, x, y));
-        return get(x, y).get();
+        put(coord, new WorldTile(this, coord));
+        return get(coord).get();
     }
 
     @Override
@@ -48,11 +47,11 @@ public class TileManager implements Manager {
         return tiles.size();
     }
 
-    private void put(int x, int y, Tile tile) {
-        tiles.put(new Pair<>(x, y), tile);
+    private void put(Coordinate coord, Tile tile) {
+        tiles.put(coord, tile);
     }
 
-    private boolean hasExistingNeighbor(int x, int y) {
-        return exists(x - 1, y) || exists(x + 1, y) || exists(x, y - 1) || exists(x, y + 1);
+    private boolean hasExistingNeighbor(Coordinate coord) {
+        return coord.getNeighbors().stream().anyMatch(coordinate -> get(coordinate).isPresent());
     }
 }

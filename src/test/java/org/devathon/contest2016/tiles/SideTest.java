@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -32,12 +33,13 @@ public class SideTest {
     }
 
     @Test
-    public void testCreateNewOptionalOfSameType() throws Exception {
-        assertThat(side.getOther().getType(), is(Type.CITY));
+    public void testCreateEmptyOptional() throws Exception {
+        assertThat(side.getOther(), is(nullValue()));
     }
 
     @Test
     public void testReturnOtherOtherIsSelf() throws Exception {
+        new WorldSide(new RootTile(), side);
         assertThat(side.getOther().getOther(), is(side));
     }
 

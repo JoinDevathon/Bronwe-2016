@@ -36,4 +36,9 @@ public class Pair<O, T> {
     public int hashCode() {
         return Objects.hash(one, two);
     }
+
+    @Override
+    public String toString() {
+        return one.toString() + " " + two.toString();
+    }
 }
