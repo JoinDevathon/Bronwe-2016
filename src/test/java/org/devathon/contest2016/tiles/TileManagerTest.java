@@ -1,8 +1,5 @@
-package org.devathon.contest2016.model;
+package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.RootTile;
-import org.devathon.contest2016.tiles.TileManager;
-import org.devathon.contest2016.tiles.WorldTile;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

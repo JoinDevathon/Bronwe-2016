@@ -1,4 +1,4 @@
-package org.devathon.contest2016.model;
+package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.tiles.Type;
 import org.devathon.contest2016.tiles.WorldSide;
