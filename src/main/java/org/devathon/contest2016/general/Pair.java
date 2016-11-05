@@ -1,4 +1,4 @@
-package org.devathon.contest2016;
+package org.devathon.contest2016.general;
 
 import java.util.Objects;
 

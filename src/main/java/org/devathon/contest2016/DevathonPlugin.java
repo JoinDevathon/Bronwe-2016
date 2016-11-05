@@ -6,9 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.devathon.contest2016.tiles.Coordinate;
-import org.devathon.contest2016.tiles.Manager;
-import org.devathon.contest2016.tiles.general.RootTile;
+import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.tiles.interfaces.Manager;
+import org.devathon.contest2016.tiles.RootTile;
 
 import java.util.logging.Logger;
 

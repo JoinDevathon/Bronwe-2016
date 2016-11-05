@@ -1,4 +1,4 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.tiles.interfaces;
 
 import java.util.Set;
 

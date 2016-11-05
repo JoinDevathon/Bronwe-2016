@@ -1,6 +1,9 @@
 package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.general.RootTile;
+import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
 import org.junit.Before;
 import org.junit.Test;
 

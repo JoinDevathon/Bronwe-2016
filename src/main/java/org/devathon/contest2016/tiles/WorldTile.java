@@ -1,6 +1,10 @@
-package org.devathon.contest2016.tiles.general;
+package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.*;
+import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.tiles.interfaces.Manager;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.devathon.contest2016.tiles.Rotation.opposite;
+import static org.devathon.contest2016.general.Rotation.opposite;
 
 /**
  * Created by Voronwe on 11/5/2016.

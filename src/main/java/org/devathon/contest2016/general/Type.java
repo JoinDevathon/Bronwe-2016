@@ -1,4 +1,4 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.general;
 
 /**
  * Created by Voronwe on 11/5/2016.

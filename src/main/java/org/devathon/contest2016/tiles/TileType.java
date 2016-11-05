@@ -1,5 +1,12 @@
 package org.devathon.contest2016.tiles;
 
+import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Voronwe on 11/5/2016.
  */
@@ -20,19 +27,17 @@ public enum TileType {
         this.left = left;
     }
 
-    public Type getLeft() {
-        return left;
+    public Type[] getTypes() {
+        return new Type[]{top, right, bottom, left};
     }
 
-    public Type getBottom() {
-        return bottom;
-    }
+    public List<Side> asSidesList(Tile rootTile) {
+        List<Side> sides = new ArrayList<>(4);
 
-    public Type getRight() {
-        return right;
-    }
+        for (Type type : getTypes()) {
+            sides.add(new WorldSide(rootTile, type));
+        }
 
-    public Type getTop() {
-        return top;
+        return sides;
     }
 }

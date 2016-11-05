@@ -1,4 +1,6 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.tiles.interfaces;
+
+import org.devathon.contest2016.general.Coordinate;
 
 import java.util.Optional;
 

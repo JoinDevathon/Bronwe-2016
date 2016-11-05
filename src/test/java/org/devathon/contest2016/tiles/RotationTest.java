@@ -2,7 +2,7 @@ package org.devathon.contest2016.tiles;
 
 import org.junit.Test;
 
-import static org.devathon.contest2016.tiles.Rotation.*;
+import static org.devathon.contest2016.general.Rotation.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

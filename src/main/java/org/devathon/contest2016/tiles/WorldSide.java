@@ -1,8 +1,8 @@
-package org.devathon.contest2016.tiles.general;
+package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.Side;
-import org.devathon.contest2016.tiles.Tile;
-import org.devathon.contest2016.tiles.Type;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
+import org.devathon.contest2016.general.Type;
 
 /**
  * Created by Voronwe on 11/5/2016. :)

@@ -1,6 +1,6 @@
-package org.devathon.contest2016.tiles.general;
+package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.Coordinate;
+import org.devathon.contest2016.general.Coordinate;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

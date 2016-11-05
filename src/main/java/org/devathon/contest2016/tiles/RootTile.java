@@ -1,26 +1,18 @@
-package org.devathon.contest2016.tiles.general;
+package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.Manager;
-import org.devathon.contest2016.tiles.Side;
-import org.devathon.contest2016.tiles.Tile;
-import org.devathon.contest2016.tiles.Type;
+import org.devathon.contest2016.tiles.interfaces.Manager;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
 
-import java.util.Arrays;
 import java.util.List;
-
-import static org.devathon.contest2016.tiles.Type.*;
 
 /**
  * Created by Voronwe on 11/5/2016.
  */
 public class RootTile implements Tile {
 
-    private final List<Side> sides = Arrays.asList(side(CITY), side(ROAD), side(LAND), side(ROAD));
+    private final List<Side> sides = TileType.DEFAULT.asSidesList(this);
     private final TileManager tileManager = new TileManager(this);
-
-    private WorldSide side(Type city) {
-        return new WorldSide(this, city);
-    }
 
     @Override
     public List<Side> getSides() {

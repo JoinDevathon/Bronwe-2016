@@ -1,11 +1,14 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.general;
 
 /**
  * Created by Voronwe on 11/5/2016.
  */
 public enum Rotation {
 
-    NORMAL(2), QUARTER(3), HALF(0), THREE_QUARTER(1);
+    NORMAL(2),
+    QUARTER(3),
+    HALF(0),
+    THREE_QUARTER(1);
 
     private int opposite;
 

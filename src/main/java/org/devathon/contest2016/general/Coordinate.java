@@ -1,7 +1,5 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.general;
 
-
-import org.devathon.contest2016.Pair;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +27,7 @@ public class Coordinate extends Pair<Integer, Integer> {
         return Arrays.asList(above, left, below, right);
     }
 
-    private Coordinate create(Integer key, int y) {
+    private Coordinate create(int key, int y) {
         return new Coordinate(getOne() + key, getTwo() + y);
     }
 
