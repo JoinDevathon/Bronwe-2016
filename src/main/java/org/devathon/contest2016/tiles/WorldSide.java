@@ -1,7 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 /**
- * Created by Voronwe on 11/5/2016.
+ * Created by Voronwe on 11/5/2016. :)
  */
 public class WorldSide implements Side {
 
@@ -28,6 +28,12 @@ public class WorldSide implements Side {
     public Side getOther() {
         if (otherSide == null)
             otherSide = new WorldSide(this);
+        return otherSide;
+    }
+
+    @Override
+    public Side setOther(Side other) {
+        this.otherSide = other;
         return otherSide;
     }
 

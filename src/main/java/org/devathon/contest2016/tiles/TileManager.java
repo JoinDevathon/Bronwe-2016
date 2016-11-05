@@ -4,6 +4,7 @@ import org.devathon.contest2016.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by Voronwe on 11/5/2016.
@@ -19,12 +20,9 @@ public class TileManager implements Manager {
     }
 
     @Override
-    public Tile get(int x, int y) {
-        if (!exists(x, y)) {
-            throw new IllegalArgumentException("This tile does not exist.");
-        }
+    public Optional<Tile> get(int x, int y) {
 
-        return tiles.get(new Pair<>(x, y));
+        return Optional.ofNullable(tiles.getOrDefault(new Pair<>(x, y), null));
     }
 
     private boolean exists(int x, int y) {
@@ -39,8 +37,8 @@ public class TileManager implements Manager {
         if (!hasExistingNeighbor(x, y))
             throw new IllegalArgumentException("This tile would not be connected.");
 
-        put(x, y, new WorldTile(this));
-        return get(x, y);
+        put(x, y, new WorldTile(this, x, y));
+        return get(x, y).get();
     }
 
     @Override

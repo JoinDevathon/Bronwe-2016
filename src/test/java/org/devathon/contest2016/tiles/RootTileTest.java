@@ -37,7 +37,7 @@ public class RootTileTest {
 
     @Test
     public void testTileManager() throws Exception {
-        assertThat(root.getManager().get(0, 0), is(root));
+        assertThat(root.getManager().get(0, 0).get(), is(root));
     }
     @Test
     public void testConsistentTileManager() throws Exception {

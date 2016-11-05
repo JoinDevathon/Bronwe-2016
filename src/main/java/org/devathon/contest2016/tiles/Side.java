@@ -9,5 +9,7 @@ public interface Side {
 
     Side getOther();
 
+    Side setOther(Side other);
+
     Tile getTile();
 }

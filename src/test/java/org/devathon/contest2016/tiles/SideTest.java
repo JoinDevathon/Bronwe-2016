@@ -1,7 +1,5 @@
 package org.devathon.contest2016.tiles;
 
-import org.devathon.contest2016.tiles.Type;
-import org.devathon.contest2016.tiles.WorldSide;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +42,20 @@ public class SideTest {
     @Test
     public void testGetOtherIsConstant() throws Exception {
         assertThat(side.getOther(), is(side.getOther()));
+    }
+
+    @Test
+    public void testSetOtherIsOther() throws Exception {
+        Side side = new WorldSide(new RootTile(), Type.CITY);
+        Side other = new WorldSide(new RootTile(), Type.CITY);
+        assertThat(side.setOther(other), is(other));
+    }
+    @Test
+    public void testGetOtherIsOther() throws Exception {
+        Side side = new WorldSide(new RootTile(), Type.CITY);
+        Side other = new WorldSide(new RootTile(), Type.CITY);
+        side.setOther(other);
+        assertThat(side.getOther(), is(other));
     }
 
 

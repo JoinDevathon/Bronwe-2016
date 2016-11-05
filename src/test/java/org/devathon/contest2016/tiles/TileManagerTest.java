@@ -25,8 +25,6 @@ public class TileManagerTest {
 
     @Test
     public void testUnconnectedTileThrowsException() throws Exception {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("This tile does not exist.");
         manager.get(2, 2);
     }
 
