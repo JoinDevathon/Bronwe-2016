@@ -21,22 +21,6 @@ public class Coordinate extends Pair<Integer, Integer> {
         super(x, y);
     }
 
-    public static int opposite(int input) {
-        switch (input) {
-            case 0:
-                return 2;
-            case 1:
-                return 3;
-            case 2:
-                return 0;
-            case 3:
-                return 1;
-            default:
-                throw new IllegalArgumentException("Invalid input");
-
-        }
-    }
-
     public List<Coordinate> getNeighbors() {
         Coordinate above = create(0, 1);
         Coordinate left = create(1, 0);

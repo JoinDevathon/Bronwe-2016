@@ -52,6 +52,6 @@ public class TileManager implements Manager {
     }
 
     private boolean hasExistingNeighbor(Coordinate coord) {
-        return coord.getNeighbors().stream().anyMatch(coordinate -> get(coordinate).isPresent());
+        return coord.getNeighbors().stream().anyMatch(this::exists);
     }
 }

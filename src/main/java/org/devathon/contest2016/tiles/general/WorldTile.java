@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.devathon.contest2016.tiles.Coordinate.opposite;
+import static org.devathon.contest2016.tiles.Rotation.opposite;
 
 /**
  * Created by Voronwe on 11/5/2016.
