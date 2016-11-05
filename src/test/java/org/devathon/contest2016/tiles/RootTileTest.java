@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles;
 
+import org.devathon.contest2016.tiles.general.RootTile;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,11 +40,11 @@ public class RootTileTest {
     public void testTileManager() throws Exception {
         assertThat(root.getManager().get(0, 0).get(), is(root));
     }
+
     @Test
     public void testConsistentTileManager() throws Exception {
         assertThat(root.getManager(), is(root.getManager()));
     }
-
 
 
 }

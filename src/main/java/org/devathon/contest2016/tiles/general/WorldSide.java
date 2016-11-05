@@ -1,4 +1,8 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.tiles.general;
+
+import org.devathon.contest2016.tiles.Side;
+import org.devathon.contest2016.tiles.Tile;
+import org.devathon.contest2016.tiles.Type;
 
 /**
  * Created by Voronwe on 11/5/2016. :)
@@ -14,9 +18,10 @@ public class WorldSide implements Side {
         this.type = type;
     }
 
-    private WorldSide(Side other) {
+    public WorldSide(Side other) {
         this(other.getTile(), other.getType());
         this.otherSide = other;
+        otherSide.setOther(this);
     }
 
     @Override
@@ -40,5 +45,11 @@ public class WorldSide implements Side {
     @Override
     public Tile getTile() {
         return parent;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s", getType(),
+                otherSide == null ? "null" : otherSide.getType());
     }
 }

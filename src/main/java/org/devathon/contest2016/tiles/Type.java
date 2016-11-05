@@ -5,6 +5,6 @@ package org.devathon.contest2016.tiles;
  */
 public enum Type {
 
-    CITY, LAND, ROAD
+    CITY, LAND, ROAD, MINE
 
 }

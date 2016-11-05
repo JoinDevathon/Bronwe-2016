@@ -1,6 +1,8 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.tiles.general;
 
 import org.devathon.contest2016.Pair;
+import org.devathon.contest2016.tiles.Manager;
+import org.devathon.contest2016.tiles.Tile;
 
 import java.util.HashMap;
 import java.util.Map;

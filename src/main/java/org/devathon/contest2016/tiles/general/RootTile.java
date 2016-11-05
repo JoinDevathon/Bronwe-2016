@@ -1,4 +1,9 @@
-package org.devathon.contest2016.tiles;
+package org.devathon.contest2016.tiles.general;
+
+import org.devathon.contest2016.tiles.Manager;
+import org.devathon.contest2016.tiles.Side;
+import org.devathon.contest2016.tiles.Tile;
+import org.devathon.contest2016.tiles.Type;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,5 +30,14 @@ public class RootTile implements Tile {
     @Override
     public Manager getManager() {
         return tileManager;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("" +
+                "# C #%n" +
+                "R # R%n" +
+                "# L #"
+        );
     }
 }

@@ -1,7 +1,7 @@
 package org.devathon.contest2016;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.devathon.contest2016.tiles.RootTile;
+import org.devathon.contest2016.tiles.general.RootTile;
 
 import java.util.logging.Logger;
 

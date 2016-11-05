@@ -1,5 +1,7 @@
 package org.devathon.contest2016.tiles;
 
+import org.devathon.contest2016.tiles.general.RootTile;
+import org.devathon.contest2016.tiles.general.WorldSide;
 import org.junit.Before;
 import org.junit.Test;
 
