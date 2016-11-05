@@ -5,7 +5,7 @@ package org.devathon.contest2016.tiles;
  */
 public class WorldSide implements Side {
 
-    private Tile parent;
+    private final Tile parent;
     private final Type type;
     private Side otherSide; // HELLO FROM THE OTHER SIDE!
 

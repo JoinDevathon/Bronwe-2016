@@ -7,4 +7,6 @@ public interface Manager {
     Tile get(int x, int y);
 
     Tile create(int x, int y);
+
+    int getTileCount();
 }

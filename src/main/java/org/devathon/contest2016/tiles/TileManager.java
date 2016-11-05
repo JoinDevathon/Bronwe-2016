@@ -14,7 +14,7 @@ public class TileManager implements Manager {
 
     public TileManager(Tile root) {
         tiles = new HashMap<>();
-        tiles.put(new Pair<>(0, 0), root);
+        put(0, 0, root);
 
     }
 
@@ -33,12 +33,26 @@ public class TileManager implements Manager {
 
     @Override
     public Tile create(int x, int y) {
+        if (exists(x, y))
+            throw new IllegalArgumentException("This tile already exists.");
 
-        if (exists(x - 1, y) || exists(x + 1, y) || exists(x, y - 1) || exists(x, y + 1)) {
-            return new WorldTile();
-        }
+        if (!hasExistingNeighbor(x, y))
+            throw new IllegalArgumentException("This tile would not be connected.");
 
+        put(x, y, new WorldTile(this));
+        return get(x, y);
+    }
 
-        throw new IllegalArgumentException("This tile would not be connected.");
+    @Override
+    public int getTileCount() {
+        return tiles.size();
+    }
+
+    private void put(int x, int y, Tile tile) {
+        tiles.put(new Pair<>(x, y), tile);
+    }
+
+    private boolean hasExistingNeighbor(int x, int y) {
+        return exists(x - 1, y) || exists(x + 1, y) || exists(x, y - 1) || exists(x, y + 1);
     }
 }
