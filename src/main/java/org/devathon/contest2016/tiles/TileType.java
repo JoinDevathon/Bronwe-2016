@@ -2,6 +2,7 @@ package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.tiles.interfaces.Compound;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
 
@@ -16,7 +17,7 @@ import static org.devathon.contest2016.general.Type.*;
  */
 public enum TileType {
 
-    DEFAULT(CITY, ROAD, LAND, ROAD),
+    DEFAULT(CITY, ROAD, LAND, ROAD, ROAD),
     NATURE(LAND),
 
     CITY_ENTRY(CITY, LAND, ROAD, LAND),
@@ -73,11 +74,12 @@ public enum TileType {
 
     public List<Side> asSidesList(Tile rootTile, Rotation rotation) {
         List<Side> sides = new ArrayList<>(TILE_COUNT);
+        Compound mainCompound = new TileCompound(rootTile);
 
         Type[] types = getTypes();
         for (int i = 0; i < TILE_COUNT; i++) {
             Type type = types[Rotation.rotate(Rotation.values()[i], rotation).ordinal()];
-            sides.add(new WorldSide(rootTile, type));
+            sides.add(new WorldSide(rootTile, type, type.equals(getCenter()) ? mainCompound : new TileCompound(rootTile)));
         }
 
         return sides;

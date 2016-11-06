@@ -13,4 +13,6 @@ public interface Compound {
 
     Set<Tile> getTiles();
 
+    void addSide(Side side);
+
 }

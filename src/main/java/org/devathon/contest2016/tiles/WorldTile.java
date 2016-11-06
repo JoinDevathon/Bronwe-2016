@@ -3,6 +3,7 @@ package org.devathon.contest2016.tiles;
 import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.tiles.interfaces.Compound;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -23,9 +24,12 @@ public class WorldTile implements Tile {
 
     Type center;
 
+    Compound mainCompound;
+
     private Manager manager;
 
     public WorldTile(Manager manager, Coordinate coord, TileType type, Rotation rotation) {
+        mainCompound = new TileCompound(this);
         sides = new ArrayList<>(4);
         this.manager = manager;
 
@@ -54,7 +58,14 @@ public class WorldTile implements Tile {
         if (!own.getType().equals(other.getType()))
             throw new IllegalArgumentException("Invalidly positioned element.");
 
-        sides.set(index, new WorldSide(this, other));
+        Compound usedCompound;
+        if (other.getType().equals(center)) {
+            usedCompound = mainCompound;
+        } else {
+            usedCompound = new TileCompound(this);
+        }
+
+        sides.set(index, new WorldSide(this, other, usedCompound));
     }
 
     @Override

@@ -14,4 +14,6 @@ public interface Side {
     Side setOther(Side other);
 
     Tile getTile();
+
+    Compound getCompound();
 }
