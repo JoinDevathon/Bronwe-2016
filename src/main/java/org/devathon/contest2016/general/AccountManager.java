@@ -17,8 +17,7 @@ public class AccountManager implements Listener {
     private Map<Player, Account> accounts = new HashMap<>();
 
     public Account addPlayer(Player player) {
-        if (!accounts.containsKey(player))
-            accounts.put(player, new Account(20, 100, this));
+        accounts.putIfAbsent(player, new Account(20, 100, this));
         handleAccountChange(get(player));
         return get(player);
     }
@@ -31,15 +30,14 @@ public class AccountManager implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         addPlayer(player);
-        player.teleport(new Location(event.getPlayer().getWorld(), 8, 100, 8));
+        Location location = new Location(event.getPlayer().getWorld(), 8, 101, 8);
+        player.teleport(location);
+        player.setBedSpawnLocation(location);
     }
 
     void handleAccountChange(Account account) {
-        if (accounts.containsValue(account)) {
-            accounts.entrySet().stream().filter(e -> e.getValue().equals(account)).findFirst().ifPresent(
-                    e -> sendAccountInfo(account, e.getKey())
-            );
-        }
+        accounts.entrySet().stream().filter(e -> e.getValue().equals(account)).findFirst()
+                .ifPresent(e -> sendAccountInfo(account, e.getKey()));
     }
 
     private void sendAccountInfo(Account account, Player player) {
