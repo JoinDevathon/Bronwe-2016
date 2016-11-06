@@ -1176,7 +1176,7 @@ public class EmptyPlayer implements Player {
 
     @Override
     public UUID getUniqueId() {
-        return null;
+        return UUID.randomUUID();
     }
 
     @Override

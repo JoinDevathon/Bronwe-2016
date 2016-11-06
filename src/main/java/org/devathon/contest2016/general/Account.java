@@ -42,9 +42,17 @@ public class Account {
     public void receive(Account income) {
         machines += income.getMachines();
         material += income.getMaterial();
+        if (this.accountManager != null) {
+            accountManager.handleAccountChange(this);
+        }
     }
 
     public int getMaterial() {
         return material;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Account %s%d %d", accountManager == null ? "" : "[Manager present] ", getMachines(), getMaterial());
     }
 }
