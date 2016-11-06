@@ -6,5 +6,6 @@ author: Voronwe
 main: org.devathon.contest2016.DevathonPlugin
 
 commands:
-  info:
+  get:
+  place:
   create:

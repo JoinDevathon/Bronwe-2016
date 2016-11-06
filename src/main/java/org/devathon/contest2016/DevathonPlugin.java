@@ -9,8 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.devathon.contest2016.general.AccountManager;
 import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Rotation;
+import org.devathon.contest2016.tiles.PlayerTileManager;
 import org.devathon.contest2016.tiles.RootTile;
-import org.devathon.contest2016.tiles.TileType;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 
 import java.util.logging.Logger;
@@ -20,12 +20,14 @@ public class DevathonPlugin extends JavaPlugin {
     private Logger log = Logger.getLogger("minecraft");
     private Manager manager;
     private AccountManager accountManager;
+    private PlayerTileManager tileManager;
 
     @Override
     public void onEnable() {
         log.info("[Machines] Plugin started.");
         manager = new RootTile().getManager();
         accountManager = new AccountManager();
+        tileManager = new PlayerTileManager(accountManager);
         getServer().getPluginManager().registerEvents(accountManager, this);
 
         World world = getServer().getWorld("world");
@@ -43,7 +45,7 @@ public class DevathonPlugin extends JavaPlugin {
             Player player = (Player) sender;
             Chunk chunk = player.getLocation().getChunk();
 
-            attemptCommandExecution(command.getName(), player, chunk);
+            attemptCommandExecution(command.getName(), player, chunk, args);
 
         } else {
             sender.sendMessage("You need to be a player.");
@@ -51,15 +53,21 @@ public class DevathonPlugin extends JavaPlugin {
         return true;
     }
 
-    private void attemptCommandExecution(String commandName, Player player, Chunk chunk) {
+    private void attemptCommandExecution(String commandName, Player player, Chunk chunk, String[] args) {
         Coordinate coord = new Coordinate(chunk.getX(), chunk.getZ());
         try {
             if (commandName.equalsIgnoreCase("get")) {
+                player.sendMessage(tileManager.generateRandomTile(player).toString());
+            } else if (commandName.equalsIgnoreCase("info")) {
                 player.sendMessage(manager.get(coord).get().toString());
             } else if (commandName.equalsIgnoreCase("create")) {
-                String newTile = manager.create(coord, TileType.DEFAULT, Rotation.NORMAL).toString();
-                player.sendMessage(newTile);
-                highlight(chunk);
+                if (args.length == 0) {
+                    player.sendMessage(ChatColor.RED + "Specify a rotation!");
+                } else {
+                    String newTile = manager.create(coord, tileManager.getCurrentTile(player), Rotation.valueOf(args[0])).toString();
+                    player.sendMessage(newTile);
+                    highlight(chunk);
+                }
             }
         } catch (IllegalArgumentException e) {
             player.sendMessage(ChatColor.RED + e.getMessage());
