@@ -46,8 +46,10 @@ public class WorldTile implements Tile {
     private void linkSides(int index, Tile neighborTile) {
         Side other = neighborTile.getSides().get(opposite(index));
         Side own = sides.get(index);
+
         if (!own.getType().equals(other.getType()))
-            throw new IllegalArgumentException("Invalidly positioned element");
+            throw new IllegalArgumentException("Invalidly positioned element.");
+
         sides.set(index, new WorldSide(this, other));
     }
 

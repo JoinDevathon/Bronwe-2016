@@ -58,10 +58,28 @@ public class TileManagerTest {
     }
 
     @Test
+    public void testWronglyPositionedTileThrowsException() throws Exception {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Invalidly positioned element.");
+        manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.QUARTER);
+    }
+
+    @Test
     public void testGetTotal() throws Exception {
         assertThat(manager.getTileCount(), is(1));
         manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         assertThat(manager.getTileCount(), is(2));
+    }
+
+    @Test
+    public void testGetTotalMultipleTiles() throws Exception {
+        assertThat(manager.getTileCount(), is(1));
+        manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
+        manager.create(new Coordinate(2, 0), TileType.DEFAULT, Rotation.NORMAL);
+        manager.create(new Coordinate(3, 0), TileType.DEFAULT, Rotation.NORMAL);
+        manager.create(new Coordinate(4, 0), TileType.DEFAULT, Rotation.NORMAL);
+        manager.create(new Coordinate(0, 1), TileType.DEFAULT, Rotation.HALF);
+        assertThat(manager.getTileCount(), is(6));
     }
 
     @Test

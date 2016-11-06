@@ -8,12 +8,32 @@ import org.devathon.contest2016.tiles.interfaces.Tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.devathon.contest2016.general.Type.*;
+
 /**
  * Created by Voronwe on 11/5/2016.
  */
 public enum TileType {
 
-    DEFAULT(Type.CITY, Type.ROAD, Type.LAND, Type.ROAD);
+    DEFAULT(CITY, ROAD, LAND, ROAD),
+    NATURE(LAND),
+
+    CITY_ENTRY(CITY, LAND, ROAD, LAND),
+    CITY_END(CITY, LAND, LAND, LAND),
+    CITY_SIDE(CITY, LAND),
+    CITY_EDGE(CITY, CITY, LAND, CITY),
+    CITY_EDGE_ENTRY(CITY, CITY, ROAD, CITY),
+    CITY_CENTER(CITY),
+
+    ROAD_STRAIGHT(ROAD, LAND, ROAD, LAND),
+    ROAD_CORNER(LAND, ROAD),
+    JUNCTION_FULL(ROAD),
+    JUNCTION(LAND, ROAD, ROAD, ROAD),
+
+    QUARRY_ENTRY(MINE, LAND, ROAD, LAND),
+    QUARRY_END(MINE, LAND, LAND, LAND),
+    QUARRY_SIDE(MINE, LAND),
+    QUARRY(MINE);
 
     private final Type top;
     private final Type right;
@@ -21,11 +41,18 @@ public enum TileType {
     private final Type left;
 
     TileType(Type top, Type right, Type bottom, Type left) {
-
         this.top = top;
         this.right = right;
         this.bottom = bottom;
         this.left = left;
+    }
+
+    TileType(Type allSides) {
+        this(allSides, allSides, allSides, allSides);
+    }
+
+    TileType(Type firstHalf, Type secondHalf) {
+        this(firstHalf, secondHalf, secondHalf, firstHalf);
     }
 
     public Type[] getTypes() {
