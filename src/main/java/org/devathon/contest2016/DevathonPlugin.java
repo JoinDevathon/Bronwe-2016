@@ -6,11 +6,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.devathon.contest2016.general.*;
+import org.devathon.contest2016.general.AccountManager;
+import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Rotation;
+import org.devathon.contest2016.tiles.RootTile;
 import org.devathon.contest2016.tiles.TileType;
 import org.devathon.contest2016.tiles.interfaces.Manager;
-import org.devathon.contest2016.tiles.RootTile;
 
 import java.util.logging.Logger;
 
@@ -18,11 +19,14 @@ public class DevathonPlugin extends JavaPlugin {
 
     private Logger log = Logger.getLogger("minecraft");
     private Manager manager;
+    private AccountManager accountManager;
 
     @Override
     public void onEnable() {
         log.info("[Machines] Plugin started.");
         manager = new RootTile().getManager();
+        accountManager = new AccountManager();
+        getServer().getPluginManager().registerEvents(accountManager, this);
 
         World world = getServer().getWorld("world");
         Chunk chunk = world.getChunkAt(new Location(world, 0, 0, 0));
