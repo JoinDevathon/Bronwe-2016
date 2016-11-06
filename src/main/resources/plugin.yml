@@ -8,8 +8,16 @@ main: org.devathon.contest2016.DevathonPlugin
 commands:
   get:
     aliases: [roll, randomtile]
+    usage: /command
+    description: Will create a contract to gain new land. You will need to provide 10 machines.
   info:
+    usage: /<command>
+    description: Information about the current chunk of land.
   create:
     aliases: [place]
+    usage: /<command> <normal|quarter|half|three_quarter>
+    description: Determines you want to build on the land as specified by the contract.
   buy:
     aliases: [buymachines]
+    usage: /<command> <machines>
+    description: Will buy the specified amount of machines. Each costs 50 material.
