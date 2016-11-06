@@ -8,6 +8,9 @@ You are in control of 20 Machines. Conquer the world!
 
 You will gain 100 material every minute.
 
+The generated land will look something like this:
+![Generated land](http://h.i.pxl.lt/8mtEyi.png)
+
 ## Help
 
 Help will be available for 25 hours during the contest at the following sources:
