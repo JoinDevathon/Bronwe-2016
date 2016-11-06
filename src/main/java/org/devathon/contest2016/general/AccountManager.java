@@ -17,7 +17,8 @@ public class AccountManager implements Listener {
 
     public Account addPlayer(Player player) {
         if (!accounts.containsKey(player))
-            accounts.put(player, new Account(20, 100));
+            accounts.put(player, new Account(20, 100, this));
+        handleAccountChange(get(player));
         return get(player);
     }
 
@@ -27,6 +28,20 @@ public class AccountManager implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        addPlayer(event.getPlayer());
+        Player player = event.getPlayer();
+        addPlayer(player);
+    }
+
+    void handleAccountChange(Account account) {
+        if (accounts.containsValue(account)) {
+            accounts.entrySet().stream().filter(e -> e.getValue().equals(account)).findFirst().ifPresent(
+                    e -> sendAccountInfo(account, e.getKey())
+            );
+        }
+    }
+
+    private void sendAccountInfo(Account account, Player player) {
+        player.sendMessage(String.format("You now have %d Machines and %d Material.",
+                account.getMachines(), account.getMaterial()));
     }
 }

@@ -27,6 +27,8 @@ import java.util.*;
  * Created by Voronwe on 11/6/2016.
  */
 class EmptyPlayer implements Player {
+
+
     @Override
     public String getDisplayName() {
         return null;

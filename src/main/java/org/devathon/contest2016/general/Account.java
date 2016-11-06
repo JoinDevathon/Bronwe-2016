@@ -8,11 +8,17 @@ public class Account {
 
     private int machines;
     private int material;
+    private AccountManager accountManager;
 
-    public Account(int machines, int material) {
+    public Account(int machines, int material, AccountManager accountManager) {
         this.material = material;
+        this.accountManager = accountManager;
         if (machines < 0) throw new IllegalArgumentException("Insufficient funds.");
         this.machines = machines;
+    }
+
+    public Account(int machines, int material) {
+        this(machines, material, null);
     }
 
     public int getMachines() {
@@ -28,6 +34,9 @@ public class Account {
         if (!canAfford(other)) throw new IllegalArgumentException("Insufficient funds.");
         this.machines -= other.getMachines();
         this.material -= other.getMaterial();
+        if (this.accountManager != null) {
+            accountManager.handleAccountChange(this);
+        }
     }
 
     public void receive(Account income) {

@@ -4,6 +4,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.junit.Test;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -79,6 +81,36 @@ public class AccountManagerTest {
         Player player = new EmptyPlayer();
         accountManager.addPlayer(player).receive(new Account(0, 10));
         assertThat(accountManager.get(player).getMaterial(), is(110));
+    }
+
+    @Test
+    public void testReceiveInitialAccountMessage() throws Exception {
+        AccountManager accountManager = new AccountManager();
+        AtomicInteger count = new AtomicInteger(-1);
+        Player player = new EmptyPlayer() {
+            @Override
+            public void sendMessage(String s) {
+                assertThat(s, is("You now have 20 Machines and 100 Material."));
+                count.incrementAndGet();
+            }
+        };
+        accountManager.addPlayer(player);
+        assertThat(count.get(), is(0));
+    }
+
+    @Test
+    public void testReceiveOtherAccountMessage() throws Exception {
+        AccountManager accountManager = new AccountManager();
+        AtomicInteger count = new AtomicInteger(-2);
+        Player player = new EmptyPlayer() {
+            @Override
+            public void sendMessage(String s) {
+                if (count.getAndIncrement() == -1)
+                    assertThat(s, is("You now have 19 Machines and 99 Material."));
+            }
+        };
+        accountManager.addPlayer(player).buy(new Account(1, 1));
+        assertThat(count.get(), is(0));
     }
 
 }
