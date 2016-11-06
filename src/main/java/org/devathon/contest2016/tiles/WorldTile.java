@@ -23,11 +23,14 @@ public class WorldTile implements Tile {
 
     private Manager manager;
 
-    public WorldTile(Manager manager, Coordinate coord) {
+    public WorldTile(Manager manager, Coordinate coord, TileType type) {
         sides = new ArrayList<>(4);
         this.manager = manager;
+
+        sides = type.asSidesList(this);
         List<Coordinate> neighbors = coord.getNeighbors();
-        int size = neighbors.size();
+        int size = sides.size();
+
 
         AtomicInteger i = new AtomicInteger(-1);
         while (i.incrementAndGet() < size) {
@@ -36,12 +39,14 @@ public class WorldTile implements Tile {
 
             tile.ifPresent(neighborTile -> {
                 Side other = neighborTile.getSides().get(opposite(i.get()));
-                sides.add(new WorldSide(this, other));
-                found.set(true);
+                Side own = sides.get(i.get());
+                if (!own.getType().equals(other.getType()))
+                    throw new IllegalArgumentException("Invalidly positioned element");
+                sides.set(i.get(), new WorldSide(this, other));
             });
 
             if (!found.get()) {
-                sides.add(new WorldSide(this, (Type) null));
+                this.sides.add(new WorldSide(this, (Type) null));
             }
         }
     }

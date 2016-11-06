@@ -1,6 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -18,7 +19,7 @@ public class WorldTileTest {
     public void testCalculateSides() throws Exception {
         Tile root = new RootTile();
         Manager manager = new TileManager(root);
-        Tile neighbor = manager.create(new Coordinate(1, 0));
+        Tile neighbor = manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         assertThat(neighbor.getSides().get(3).getOther(), is(root.getSides().get(1)));
     }
 
@@ -26,7 +27,7 @@ public class WorldTileTest {
     public void testCalculateSidesLinks() throws Exception {
         Tile root = new RootTile();
         Manager manager = new TileManager(root);
-        Tile neighbor = manager.create(new Coordinate(1, 0));
+        Tile neighbor = manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         Side side = neighbor.getSides().get(3);
         assertThat(side.getOther().getOther(), is(side));
     }

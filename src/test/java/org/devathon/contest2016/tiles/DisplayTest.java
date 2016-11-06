@@ -1,6 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Rotation;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -26,10 +27,10 @@ public class DisplayTest {
     @Test
     public void testTile() throws Exception {
 
-        assertThat(new RootTile().getManager().create(new Coordinate(1, 0)).toString(), is("" +
-                        "# n #" + NEWLINE +
-                        "R   n" + NEWLINE +
-                        "# n #"
+        assertThat(new RootTile().getManager().create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL).toString(), is("" +
+                        "# C #" + NEWLINE +
+                        "R   R" + NEWLINE +
+                        "# L #"
                 )
         );
     }

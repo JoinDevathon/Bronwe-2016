@@ -1,6 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Rotation;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,39 +34,39 @@ public class TileManagerTest {
     public void testCreateUnconnectedTileThrowsException() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile would not be connected.");
-        manager.create(new Coordinate(2, 2));
+        manager.create(new Coordinate(2, 2), TileType.DEFAULT, Rotation.NORMAL);
     }
 
     @Test
     public void testCreateConnectedTile() throws Exception {
-        assertThat(manager.create(new Coordinate(1, 0)), is(instanceOf(WorldTile.class)));
+        assertThat(manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL), is(instanceOf(WorldTile.class)));
     }
 
     @Test
     public void testCreateRootThrowsException() throws Exception {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile already exists.");
-        manager.create(new Coordinate(0, 0));
+        manager.create(new Coordinate(0, 0), TileType.DEFAULT, Rotation.NORMAL);
     }
 
     @Test
     public void testExistingTileThrowsException() throws Exception {
-        manager.create(new Coordinate(1, 0));
+        manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("This tile already exists.");
-        manager.create(new Coordinate(1, 0));
+        manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
     }
 
     @Test
     public void testGetTotal() throws Exception {
         assertThat(manager.getTileCount(), is(1));
-        manager.create(new Coordinate(1, 0));
+        manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         assertThat(manager.getTileCount(), is(2));
     }
 
     @Test
     public void testNewTileGetManager() throws Exception {
-        assertThat(manager.create(new Coordinate(1, 0)).getManager(), is(manager));
+        assertThat(manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL).getManager(), is(manager));
     }
 
 }

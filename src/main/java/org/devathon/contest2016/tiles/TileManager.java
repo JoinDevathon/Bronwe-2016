@@ -1,6 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Tile;
 
@@ -30,15 +31,16 @@ public class TileManager implements Manager {
         return tiles.containsKey(coord);
     }
 
+
     @Override
-    public Tile create(Coordinate coord) {
+    public Tile create(Coordinate coord, TileType type, Rotation rotation) {
         if (exists(coord))
             throw new IllegalArgumentException("This tile already exists.");
 
         if (!hasExistingNeighbor(coord))
             throw new IllegalArgumentException("This tile would not be connected.");
 
-        put(coord, new WorldTile(this, coord));
+        put(coord, new WorldTile(this, coord, type));
         return get(coord).get();
     }
 

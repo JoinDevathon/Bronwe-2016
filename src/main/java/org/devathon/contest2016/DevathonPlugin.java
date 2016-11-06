@@ -6,7 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.devathon.contest2016.general.Coordinate;
+import org.devathon.contest2016.general.*;
+import org.devathon.contest2016.general.Rotation;
+import org.devathon.contest2016.tiles.TileType;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.RootTile;
 
@@ -51,7 +53,7 @@ public class DevathonPlugin extends JavaPlugin {
             if (commandName.equalsIgnoreCase("get")) {
                 player.sendMessage(manager.get(coord).get().toString());
             } else if (commandName.equalsIgnoreCase("create")) {
-                String newTile = manager.create(coord).toString();
+                String newTile = manager.create(coord, TileType.DEFAULT, Rotation.NORMAL).toString();
                 player.sendMessage(newTile);
                 highlight(chunk);
             }
