@@ -1,5 +1,6 @@
 package org.devathon.contest2016.general;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,6 +31,7 @@ public class AccountManager implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         addPlayer(player);
+        player.teleport(new Location(event.getPlayer().getWorld(), 8, 100, 8));
     }
 
     void handleAccountChange(Account account) {
