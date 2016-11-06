@@ -40,7 +40,7 @@ public class TileManager implements Manager {
         if (!hasExistingNeighbor(coord))
             throw new IllegalArgumentException("This tile would not be connected.");
 
-        put(coord, new WorldTile(this, coord, type));
+        put(coord, new WorldTile(this, coord, type, rotation));
         return get(coord).get();
     }
 

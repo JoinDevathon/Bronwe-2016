@@ -1,7 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
-import org.devathon.contest2016.general.Type;
+import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -9,7 +9,6 @@ import org.devathon.contest2016.tiles.interfaces.Tile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.devathon.contest2016.general.Rotation.opposite;
@@ -23,36 +22,33 @@ public class WorldTile implements Tile {
 
     private Manager manager;
 
-    public WorldTile(Manager manager, Coordinate coord, TileType type) {
+    public WorldTile(Manager manager, Coordinate coord, TileType type, Rotation rotation) {
         sides = new ArrayList<>(4);
         this.manager = manager;
 
-        sides = type.asSidesList(this);
+        sides = type.asSidesList(this, rotation);
         List<Coordinate> neighbors = coord.getNeighbors();
         int size = sides.size();
 
 
         AtomicInteger i = new AtomicInteger(-1);
         while (i.incrementAndGet() < size) {
-            AtomicBoolean found = new AtomicBoolean();
-            Optional<Tile> tile = manager.get(neighbors.get(i.get()));
-
-            tile.ifPresent(neighborTile -> {
-                Side other = neighborTile.getSides().get(opposite(i.get()));
-                Side own = sides.get(i.get());
-                if (!own.getType().equals(other.getType()))
-                    throw new IllegalArgumentException("Invalidly positioned element");
-                sides.set(i.get(), new WorldSide(this, other));
-            });
-
-            if (!found.get()) {
-                this.sides.add(new WorldSide(this, (Type) null));
-            }
+            int index = i.get();
+            Optional<Tile> tile = manager.get(neighbors.get(index));
+            tile.ifPresent(neighborTile -> linkSides(index, neighborTile));
         }
     }
 
     private static String firstLetter(Side o) {
         return o.toString().substring(0, 1);
+    }
+
+    private void linkSides(int index, Tile neighborTile) {
+        Side other = neighborTile.getSides().get(opposite(index));
+        Side own = sides.get(index);
+        if (!own.getType().equals(other.getType()))
+            throw new IllegalArgumentException("Invalidly positioned element");
+        sides.set(index, new WorldSide(this, other));
     }
 
     @Override

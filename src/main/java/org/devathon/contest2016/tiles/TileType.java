@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles;
 
+import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.general.Type;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -31,10 +32,12 @@ public enum TileType {
         return new Type[]{top, right, bottom, left};
     }
 
-    public List<Side> asSidesList(Tile rootTile) {
+    public List<Side> asSidesList(Tile rootTile, Rotation rotation) {
         List<Side> sides = new ArrayList<>(4);
 
-        for (Type type : getTypes()) {
+        Type[] types = getTypes();
+        for (int i = 0, typesLength = types.length; i < typesLength; i++) {
+            Type type = types[Rotation.rotate(Rotation.values()[i], rotation).ordinal()];
             sides.add(new WorldSide(rootTile, type));
         }
 

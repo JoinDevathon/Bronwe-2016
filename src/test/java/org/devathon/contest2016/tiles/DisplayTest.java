@@ -35,6 +35,16 @@ public class DisplayTest {
         );
     }
     @Test
+    public void testTileRotated() throws Exception {
+
+        assertThat(new RootTile().getManager().create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.HALF).toString(), is("" +
+                        "# L #" + NEWLINE +
+                        "R   R" + NEWLINE +
+                        "# C #"
+                )
+        );
+    }
+    @Test
     public void testCoordinates() throws Exception {
         assertThat(new Coordinate(3, 4).toString(), is("3 4"));
     }

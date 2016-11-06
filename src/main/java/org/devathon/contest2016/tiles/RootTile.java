@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles;
 
+import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class RootTile implements Tile {
 
-    private final List<Side> sides = TileType.DEFAULT.asSidesList(this);
+    private final List<Side> sides = TileType.DEFAULT.asSidesList(this, Rotation.NORMAL);
     private final TileManager tileManager = new TileManager(this);
 
     @Override
