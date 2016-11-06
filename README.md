@@ -1,5 +1,12 @@
-# Devathon Project
-This is the base layout for your Devathon Project. It includes several scripts to make running incredibly easy on Windows, Mac, and Linux.
+# The Machines
+You are in control of 20 Machines. Conquer the world!
+
+`buy <machines>` will buy the specified amount of machines. Each costs 50 material.
+`get` will create a contract to gain new land. You will need to provide 10 machines.
+`create <normal|quarter|half|three_quarter>` determines you want to build on the land as specified by the contract.
+`info` information about the current chunk of land.
+
+You will gain 100 material every minute.
 
 ## Help
 
