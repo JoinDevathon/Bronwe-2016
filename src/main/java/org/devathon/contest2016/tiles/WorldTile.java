@@ -2,6 +2,7 @@ package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Rotation;
+import org.devathon.contest2016.general.Type;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -20,6 +21,8 @@ public class WorldTile implements Tile {
 
     List<Side> sides;
 
+    Type center;
+
     private Manager manager;
 
     public WorldTile(Manager manager, Coordinate coord, TileType type, Rotation rotation) {
@@ -37,6 +40,7 @@ public class WorldTile implements Tile {
             Optional<Tile> tile = manager.get(neighbors.get(index));
             tile.ifPresent(neighborTile -> linkSides(index, neighborTile));
         }
+        this.center = type.getCenter();
     }
 
     private static String firstLetter(Side o) {
@@ -61,6 +65,11 @@ public class WorldTile implements Tile {
     @Override
     public Manager getManager() {
         return manager;
+    }
+
+    @Override
+    public Type getCenter() {
+        return center;
     }
 
     @Override

@@ -14,8 +14,14 @@ import org.devathon.contest2016.general.Rotation;
 import org.devathon.contest2016.tiles.PlayerTileManager;
 import org.devathon.contest2016.tiles.RootTile;
 import org.devathon.contest2016.tiles.interfaces.Manager;
+import org.devathon.contest2016.tiles.interfaces.Side;
+import org.devathon.contest2016.tiles.interfaces.Tile;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
+
+import static org.bukkit.Material.AIR;
 
 public class DevathonPlugin extends JavaPlugin {
 
@@ -35,7 +41,7 @@ public class DevathonPlugin extends JavaPlugin {
 
         World world = getServer().getWorld("world");
         Chunk chunk = world.getChunkAt(new Location(world, 0, 0, 0));
-        chunk.getBlock(0, 100, 0).setType(Material.STONE);
+        highlight(chunk);
         new IncomeRunnable(this);
     }
 
@@ -63,7 +69,7 @@ public class DevathonPlugin extends JavaPlugin {
             if (commandName.equalsIgnoreCase("get")) {
                 player.sendMessage(tileManager.generateRandomTile(player).toString());
             } else if (commandName.equalsIgnoreCase("info")) {
-                player.sendMessage(manager.get(coord).get().toString());
+                player.sendMessage(Arrays.toString(manager.get(coord).get().getSides().toArray()));
             } else if (commandName.equalsIgnoreCase("buy")) {
                 buyCommand(player, args);
             } else if (commandName.equalsIgnoreCase("create")) {
@@ -78,8 +84,8 @@ public class DevathonPlugin extends JavaPlugin {
         if (args.length == 0) {
             player.sendMessage(ChatColor.RED + "Specify a rotation!");
         } else {
-            String newTile = manager.create(coord, tileManager.getCurrentTile(player), Rotation.valueOf(args[0].toUpperCase())).toString();
-            player.sendMessage(newTile);
+            Tile newTile = manager.create(coord, tileManager.getCurrentTile(player), Rotation.valueOf(args[0].toUpperCase()));
+            player.sendMessage(Arrays.toString(newTile.getSides().toArray()));
             highlight(chunk);
             tileManager.resetTile(player);
         }
@@ -106,14 +112,29 @@ public class DevathonPlugin extends JavaPlugin {
     }
 
     private void highlight(Chunk chunk) {
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
+        Tile current = manager.get(new Coordinate(chunk.getX(), chunk.getZ())).get();
+        Material center = current.getCenter().getMaterial();
+        for (int i = 1; i < 15; i++) {
+            for (int j = 1; j < 15; j++) {
                 Block block = chunk.getBlock(i, 100, j);
-                if (block.getType().equals(Material.STONE))
-                    block.setType(Material.GOLD_BLOCK);
-                else
-                    block.setType(Material.STONE);
+                block.setType(center);
             }
+        }
+        chunk.getBlock(0, 100, 15).setType(AIR);
+        chunk.getBlock(15, 100, 0).setType(AIR);
+        chunk.getBlock(0, 100, 0).setType(AIR);
+        chunk.getBlock(15, 100, 15).setType(AIR);
+
+        List<Side> sides = current.getSides();
+        Material top = sides.get(0).getType().getMaterial();
+        Material right = sides.get(1).getType().getMaterial();
+        Material bottom = sides.get(2).getType().getMaterial();
+        Material left = sides.get(3).getType().getMaterial();
+        for (int i = 1; i < 15; i++) {
+            chunk.getBlock(i, 100, 15).setType(top);
+            chunk.getBlock(15, 100, i).setType(right);
+            chunk.getBlock(i, 100, 0).setType(bottom);
+            chunk.getBlock(0, 100, i).setType(left);
         }
     }
 

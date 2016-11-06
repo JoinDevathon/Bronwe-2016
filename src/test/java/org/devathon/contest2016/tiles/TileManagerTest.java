@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles;
 
+import org.bukkit.Material;
 import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Rotation;
 import org.junit.Before;
@@ -69,6 +70,11 @@ public class TileManagerTest {
         assertThat(manager.getTileCount(), is(1));
         manager.create(new Coordinate(1, 0), TileType.DEFAULT, Rotation.NORMAL);
         assertThat(manager.getTileCount(), is(2));
+    }
+
+    @Test
+    public void testGetCenter() throws Exception {
+        assertThat(manager.create(new Coordinate(0, 1), TileType.CITY_CENTER, Rotation.NORMAL).getCenter().getMaterial(), is(Material.STONE));
     }
 
     @Test

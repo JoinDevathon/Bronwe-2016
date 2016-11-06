@@ -1,6 +1,7 @@
 package org.devathon.contest2016.tiles;
 
 import org.devathon.contest2016.general.Rotation;
+import org.devathon.contest2016.general.Type;
 import org.devathon.contest2016.tiles.interfaces.Manager;
 import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
@@ -23,6 +24,11 @@ public class RootTile implements Tile {
     @Override
     public Manager getManager() {
         return tileManager;
+    }
+
+    @Override
+    public Type getCenter() {
+        return Type.ROAD;
     }
 
     @Override

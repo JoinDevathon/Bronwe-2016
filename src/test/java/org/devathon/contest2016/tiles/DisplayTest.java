@@ -199,6 +199,7 @@ public class DisplayTest {
                 )
         );
     }
+
     @Test
     public void testJunction() throws Exception {
         assertThat(manager.create(new Coordinate(-1, 0), TileType.JUNCTION, NORMAL).toString(), is("" +
@@ -208,6 +209,7 @@ public class DisplayTest {
                 )
         );
     }
+
     @Test
     public void testNature() throws Exception {
         assertThat(manager.create(BELOW, TileType.NATURE, NORMAL).toString(), is("" +
@@ -216,6 +218,11 @@ public class DisplayTest {
                         "# L #"
                 )
         );
+    }
+
+    @Test
+    public void testDefault() throws Exception {
+        assertThat((TileType.DEFAULT).toString(), is("DEFAULT [CITY, ROAD, LAND, ROAD]"));
     }
 
 }

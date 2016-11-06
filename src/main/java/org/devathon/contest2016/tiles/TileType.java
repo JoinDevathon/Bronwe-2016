@@ -6,6 +6,7 @@ import org.devathon.contest2016.tiles.interfaces.Side;
 import org.devathon.contest2016.tiles.interfaces.Tile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.devathon.contest2016.general.Type.*;
@@ -35,16 +36,23 @@ public enum TileType {
     QUARRY_SIDE(MINE, LAND),
     QUARRY(MINE);
 
+    public static final int TILE_COUNT = 4;
     private final Type top;
     private final Type right;
     private final Type bottom;
     private final Type left;
+    private final Type center;
 
-    TileType(Type top, Type right, Type bottom, Type left) {
+    TileType(Type top, Type right, Type bottom, Type left, Type center) {
         this.top = top;
         this.right = right;
         this.bottom = bottom;
         this.left = left;
+        this.center = center;
+    }
+
+    TileType(Type top, Type right, Type bottom, Type left) {
+        this(top, right, bottom, left, top);
     }
 
     TileType(Type allSides) {
@@ -59,15 +67,24 @@ public enum TileType {
         return new Type[]{top, right, bottom, left};
     }
 
+    public Type getCenter() {
+        return center;
+    }
+
     public List<Side> asSidesList(Tile rootTile, Rotation rotation) {
-        List<Side> sides = new ArrayList<>(4);
+        List<Side> sides = new ArrayList<>(TILE_COUNT);
 
         Type[] types = getTypes();
-        for (int i = 0, typesLength = types.length; i < typesLength; i++) {
+        for (int i = 0; i < TILE_COUNT; i++) {
             Type type = types[Rotation.rotate(Rotation.values()[i], rotation).ordinal()];
             sides.add(new WorldSide(rootTile, type));
         }
 
         return sides;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", super.toString(), Arrays.toString(getTypes()));
     }
 }

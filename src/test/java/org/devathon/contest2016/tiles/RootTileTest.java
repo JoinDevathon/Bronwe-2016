@@ -1,5 +1,6 @@
 package org.devathon.contest2016.tiles;
 
+import org.bukkit.Material;
 import org.devathon.contest2016.general.Coordinate;
 import org.devathon.contest2016.general.Type;
 import org.devathon.contest2016.tiles.interfaces.Side;
@@ -47,6 +48,11 @@ public class RootTileTest {
     @Test
     public void testConsistentTileManager() throws Exception {
         assertThat(root.getManager(), is(root.getManager()));
+    }
+
+    @Test
+    public void testCenterIsRoad() throws Exception {
+        assertThat(root.getCenter().getMaterial(), is(Material.GRASS_PATH));
     }
 
 
